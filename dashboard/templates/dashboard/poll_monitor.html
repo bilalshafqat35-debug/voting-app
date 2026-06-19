@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Monitor - {{ poll.title }}{% endblock %}
+
+{% block content %}
+    <p class="ballot-eyebrow mb-2">Live Monitor</p>
+<h2>{{ poll.title }}</h2>
+    <p class="text-muted">Total votes: {{ total_votes }}</p>
+
+    <h4 class="mt-4">Results</h4>
+    {% for choice in choices %}
+        <div class="mb-3">
+            <div class="d-flex justify-content-between">
+                <span>{{ choice.choice_text }}</span>
+                <span>{{ choice.vote_count }} votes ({{ choice.percentage }}%)</span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-info" style="width: {{ choice.percentage }}%;"></div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <h4 class="mt-4">Voter Activity</h4>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Voted For</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vote in votes %}
+                <tr>
+                    <td>{{ vote.user.username }}</td>
+                    <td>{{ vote.choice.choice_text }}</td>
+                    <td>{{ vote.voted_at|date:"d M Y, h:i A" }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3">No votes yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'dashboard:manage_polls' %}" class="btn btn-link mt-3">← Back to Manage Polls</a>
+{% endblock %}

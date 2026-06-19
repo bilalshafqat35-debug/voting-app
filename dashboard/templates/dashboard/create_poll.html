@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Poll{% endblock %}
+
+{% block content %}
+    <p class="ballot-eyebrow mb-2">Control Center</p>
+<h2 class="mb-4">Create New Poll</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Poll Title</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="show_results_before_end" id="showResults">
+            <label class="form-check-label" for="showResults">
+                Show results before poll ends
+            </label>
+        </div>
+
+        <label class="form-label">Choices (at least 2 required)</label>
+        <div id="choices-container">
+            <input type="text" name="choices" class="form-control mb-2" placeholder="Choice 1" required>
+            <input type="text" name="choices" class="form-control mb-2" placeholder="Choice 2" required>
+        </div>
+
+        <button type="button" class="btn btn-outline-secondary btn-sm mb-3" onclick="addChoice()">+ Add Another Choice</button>
+
+        <br>
+        <button type="submit" class="btn btn-success">Create Poll</button>
+        <a href="{% url 'dashboard:home' %}" class="btn btn-link">Cancel</a>
+    </form>
+
+    <script>
+        function addChoice() {
+            const container = document.getElementById('choices-container');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'choices';
+            input.className = 'form-control mb-2';
+            input.placeholder = 'Another choice';
+            container.appendChild(input);
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ poll.title }}{% endblock %}
+
+{% block content %}
+    <p class="ballot-eyebrow mb-2">Poll #{{ poll.id }}</p>
+    <h2 class="mb-2">{{ poll.title }}</h2>
+    <p class="text-muted mb-4">{{ poll.description }}</p>
+
+    {% if already_voted %}
+        <div class="alert" style="background-color: #FDF1E9; border-color: #C4622D; color: #C4622D;">
+            You have already voted on this poll.
+            <a href="{% url 'polls:results' poll.id %}" style="color: #C4622D; font-weight: 600;">View Results →</a>
+        </div>
+    {% else %}
+        <div class="card p-4" style="max-width: 560px;">
+            <form method="POST" action="{% url 'polls:vote' poll.id %}">
+                {% csrf_token %}
+
+                {% for choice in poll.choices.all %}
+                    <div class="form-check mb-3 p-2" style="border-radius: 4px;">
+                        <input class="form-check-input" type="radio" name="choice"
+                               id="choice{{ choice.id }}" value="{{ choice.id }}" required>
+                        <label class="form-check-label" for="choice{{ choice.id }}" style="font-size: 1.05rem;">
+                            {{ choice.choice_text }}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-success mt-2 w-100">Submit Vote</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'polls:poll_list' %}" class="btn btn-link mt-4 ps-0" style="color: #1B2A4A;">← Back to all polls</a>
+{% endblock %}

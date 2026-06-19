@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}All Polls{% endblock %}
+
+{% block content %}
+    <div class="mb-5 pb-3" style="border-bottom: 1px solid #E0DACB;">
+        <p class="ballot-eyebrow mb-2">Cast Your Vote</p>
+        <h1 class="display-title mb-2" style="font-size: 2.6rem;">Active Polls</h1>
+        <p class="text-muted" style="max-width: 480px;">Every vote is recorded once, counted instantly, and tallied below in real time.</p>
+    </div>
+
+    {% if polls %}
+        <div class="row">
+            {% for poll in polls %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <p class="ballot-eyebrow mb-2">Poll #{{ poll.id }}</p>
+                            <h5 class="card-title mb-2">{{ poll.title }}</h5>
+                            <p class="card-text text-muted">{{ poll.description }}</p>
+                            <a href="{% url 'polls:poll_detail' poll.id %}" class="btn btn-primary mt-2">View Poll →</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <p class="text-muted">No active polls right now. Check back later!</p>
+        </div>
+    {% endif %}
+{% endblock %}
