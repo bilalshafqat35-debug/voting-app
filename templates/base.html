@@ -98,6 +98,45 @@
             text-transform: uppercase;
             color: var(--terracotta);
         }
+
+        /* Auth forms (login/signup) input styling - targets both class-based and raw inputs */
+        .card input.form-control,
+        .card textarea.form-control,
+        .card input[type="text"],
+        .card input[type="password"] {
+            display: block;
+            width: 100%;
+            border: 1px solid #D8D2C2;
+            border-radius: 4px;
+            padding: 0.65rem 0.9rem;
+            background-color: #FCFAF6;
+            font-family: 'Inter', sans-serif;
+        }
+        .card input.form-control:focus,
+        .card textarea.form-control:focus,
+        .card input[type="text"]:focus,
+        .card input[type="password"]:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(27, 42, 74, 0.08);
+            background-color: #FFFFFF;
+            outline: none;
+        }
+
+        .auth-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+        .auth-help {
+            font-size: 0.78rem;
+            color: var(--warm-gray);
+            margin-top: 0.4rem;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>

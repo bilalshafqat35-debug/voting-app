@@ -5,17 +5,33 @@
 {% block content %}
     <div class="row justify-content-center">
         <div class="col-md-5">
+            <p class="ballot-eyebrow mb-2">Get Started</p>
             <h2 class="mb-4">Create Account</h2>
 
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-success">Sign Up</button>
-            </form>
+            <div class="card p-4 p-md-5">
+                <form method="POST">
+                    {% csrf_token %}
 
-            <p class="mt-3">
+                    {% for field in form %}
+                        <div class="mb-4">
+                            <label class="auth-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="auth-help">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% if field.errors %}
+                                <small class="d-block mt-1 fw-semibold" style="color: #C4622D;">{{ field.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-success w-100 mt-2 py-2">Sign Up</button>
+                </form>
+            </div>
+
+            <p class="mt-3 text-muted text-center">
                 Already have an account?
-                <a href="{% url 'accounts:login' %}">Login here</a>
+                <a href="{% url 'accounts:login' %}" style="color: #1B2A4A; font-weight: 600;">Login here</a>
             </p>
         </div>
     </div>

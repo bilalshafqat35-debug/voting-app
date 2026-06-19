@@ -13,4 +13,12 @@ def signup(request):
     else:
         form = UserCreationForm()
 
+    for field in form.fields.values():
+        field.widget.attrs.update({'class': 'form-control'})
+
+    # Simplify help text — Django's default is too verbose for the UI
+    form.fields['username'].help_text = 'Letters, digits and @/./+/-/_ only.'
+    form.fields['password1'].help_text = 'At least 8 characters, not entirely numeric.'
+    form.fields['password2'].help_text = ''
+
     return render(request, 'accounts/signup.html', {'form': form})
