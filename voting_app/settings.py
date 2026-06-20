@@ -27,6 +27,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['bilal777.pythonanywhere.com']
 
+CSRF_TRUSTED_ORIGINS = ['https://bilal777.pythonanywhere.com']
+
 
 # Application definition
 
